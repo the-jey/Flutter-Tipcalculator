@@ -5,7 +5,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  // This widget is the root of your application
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,7 +26,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double billAmount = 0, tipPercentage = 3.0, people = 1, totalAmount = 0;
+  double billAmount = 0,
+      tipPercentage = 3.0,
+      people = 1,
+      tipAmount = 0,
+      totalAmount = 0;
+
+  void calculate() {
+    setState(() {
+      tipAmount = billAmount * (tipPercentage / 100);
+      totalAmount = billAmount + tipAmount;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +104,9 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: 40.0),
             FlatButton(
               onPressed: () {
-                //TODO:
+                if (billAmount > 0) {
+                  calculate();
+                }
               },
               padding: EdgeInsets.symmetric(horizontal: 36.0, vertical: 12.0),
               color: Colors.blue,
@@ -105,12 +119,25 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(25.0)),
             ),
             SizedBox(height: 20.0),
-            Text(
-              'Tip: \$10.00 per person!',
-              style: TextStyle(
-                color: Colors.black45,
-              ),
-            ),
+            tipAmount != 0
+                ? Column(
+                    children: [
+                      Text(
+                        'Total Amount: \$$totalAmount',
+                        style: TextStyle(
+                          color: Colors.black45,
+                        ),
+                      ),
+                      SizedBox(height: 5.0),
+                      Text(
+                        'Tip: \$${tipAmount / people} per person!',
+                        style: TextStyle(
+                          color: Colors.black45,
+                        ),
+                      ),
+                    ],
+                  )
+                : Container(),
           ],
         ),
       ),
