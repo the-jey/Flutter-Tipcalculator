@@ -32,10 +32,38 @@ class _HomePageState extends State<HomePage> {
       tipAmount = 0,
       totalAmount = 0;
 
+  void tipDecrement() {
+    setState(() {
+      if (tipPercentage > 0) {
+        tipPercentage -= 0.5;
+      }
+    });
+  }
+
+  void tipIncrement() {
+    setState(() {
+      tipPercentage += 0.5;
+    });
+  }
+
+  void peopleDecrement() {
+    setState(() {
+      if (people > 1) {
+        people--;
+      }
+    });
+  }
+
+  void peopleIncrement() {
+    setState(() {
+      people++;
+    });
+  }
+
   void calculate() {
     setState(() {
-      tipAmount = billAmount * (tipPercentage / 100);
-      totalAmount = billAmount + tipAmount;
+      tipAmount = (billAmount * (tipPercentage / 100)).toDouble();
+      totalAmount = (billAmount + tipAmount).toDouble();
     });
   }
 
@@ -64,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    //TODO:
+                    tipDecrement();
                   },
                   child: Icon(Icons.remove_circle),
                 ),
@@ -73,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(width: 8.0),
                 GestureDetector(
                   onTap: () {
-                    //TODO:
+                    tipIncrement();
                   },
                   child: Icon(Icons.add_circle),
                 ),
@@ -86,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                 Spacer(),
                 GestureDetector(
                   onTap: () {
-                    //TODO:
+                    peopleDecrement();
                   },
                   child: Icon(Icons.remove_circle),
                 ),
@@ -95,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(width: 8.0),
                 GestureDetector(
                   onTap: () {
-                    //TODO:
+                    peopleIncrement();
                   },
                   child: Icon(Icons.add_circle),
                 ),
@@ -123,14 +151,14 @@ class _HomePageState extends State<HomePage> {
                 ? Column(
                     children: [
                       Text(
-                        'Total Amount: \$$totalAmount',
+                        'Total Amount : \$$totalAmount',
                         style: TextStyle(
                           color: Colors.black45,
                         ),
                       ),
                       SizedBox(height: 5.0),
                       Text(
-                        'Tip: \$${tipAmount / people} per person!',
+                        'Tip : \$${(tipAmount / people).toDouble()} per person!',
                         style: TextStyle(
                           color: Colors.black45,
                         ),
