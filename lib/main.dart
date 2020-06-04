@@ -80,6 +80,12 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              CircleAvatar(
+                backgroundImage: AssetImage('image/tips.png'),
+                backgroundColor: Colors.grey.shade100,
+                radius: 80.0,
+              ),
+              SizedBox(height: 40.0),
               TextField(
                 onChanged: (value) {
                   billAmount = double.parse(value);
